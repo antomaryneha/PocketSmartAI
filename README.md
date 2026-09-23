@@ -23,6 +23,7 @@ PocketSmart AI is a GenAI-powered budget recommendation assistant built using Fa
 ## How to Run
 
 1. Create and activate the virtual environment.
+
 2. Install dependencies:
 
 ```bash
