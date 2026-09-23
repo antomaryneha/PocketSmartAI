@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PocketSmart AI - Jewelry Planner</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 18px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 6px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>💎 PocketSmart AI</h1>
+    <h2>Jewelry Budget Planner</h2>
+
+    <form action="/generate-jewelry" method="post" enctype="multipart/form-data">
+        <label for="budget">Budget (₹)</label>
+        <input
+            type="number"
+            id="budget"
+            name="budget"
+            min="1"
+            placeholder="Enter your budget"
+            required
+        >
+
+        <label for="occasion">Occasion</label>
+        <select id="occasion" name="occasion" required>
+            <option value="">Select an occasion</option>
+            <option value="Wedding">Wedding</option>
+            <option value="Engagement">Engagement</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Festival">Festival</option>
+            <option value="Party">Party</option>
+            <option value="Casual">Casual</option>
+        </select>
+        <label for="outfit_image">Outfit Image (Optional)</label>
+<input
+    type="file"
+    id="outfit_image"
+    name="outfit_image"
+    accept="image/*"
+>
+        <label for="style">Style Preference</label>
+        <select id="style" name="style" required>
+            <option value="">Select a style</option>
+            <option value="Traditional">Traditional</option>
+            <option value="Modern">Modern</option>
+            <option value="Minimalist">Minimalist</option>
+            <option value="Elegant">Elegant</option>
+            <option value="Statement">Statement</option>
+        </select>
+
+        <button type="submit">
+            Get AI Jewelry Recommendations
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
