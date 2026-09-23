@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PocketSmart AI - Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #222;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .card a:hover {
+            background: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🤖 PocketSmart AI</h1>
+    <p>Smart Budget & Recommendation Assistant</p>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h2>Welcome to your Dashboard</h2>
+        <p>Choose a planner to get AI-powered budget recommendations.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>🏠 Home Interior</h2>
+            <p>Plan furniture, lighting and decoration within your budget.</p>
+            <a href="/">Open Planner</a>
+        </div>
+
+        <div class="card">
+            <h2>🎉 Party Planning</h2>
+            <p>Plan catering, decoration and entertainment for your event.</p>
+            <a href="/party">Open Planner</a>
+        </div>
+
+        <div class="card">
+            <h2>💍 Jewelry</h2>
+            <p>Get jewelry recommendations based on your budget and style.</p>
+            <a href="/jewelry">Open Planner</a>
+        </div>
+
+        <div class="card">
+            <h2>📋 Recommendation History</h2>
+            <p>View your previous AI-generated recommendations.</p>
+            <a href="/history">View History</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
