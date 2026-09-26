@@ -1,59 +1,221 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PocketSmart AI - Party Recommendation</title>
+    <title>PocketSmart - Party Budget Plan</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
             margin: 0;
-            padding: 30px;
+            padding: 25px;
+            background: #f1f4f7;
+            font-family: Arial, sans-serif;
+            color: #333;
+            font-size: 11px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 470px;
             margin: auto;
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        h1, h2 {
-            text-align: center;
-        }
-
-        .details {
-            background: #f1f3f5;
-            padding: 15px;
+            padding: 16px;
             border-radius: 8px;
-            margin: 20px 0;
-            line-height: 1.8;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
         }
 
-        .recommendation {
-            line-height: 1.7;
-            white-space: pre-wrap;
-            font-size: 16px;
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #d9dfe5;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
         }
 
-        .back-button {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            padding: 12px;
-            background: #222;
+        .title {
+            color: #123d68;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .print-btn {
+            background: #3e75b2;
             color: white;
-            text-decoration: none;
-            border-radius: 6px;
+            border: none;
+            border-radius: 4px;
+            padding: 7px 10px;
+            font-size: 9px;
+            cursor: pointer;
         }
 
-        .back-button:hover {
-            background: #444;
+        .budget {
+            color: #2874bd;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .section {
+            border: 1px solid #dce2e7;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #f8fafb;
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            color: #163e66;
+            font-weight: bold;
+            font-size: 10px;
+            border-bottom: 1px solid #dce2e7;
+        }
+
+        .section-header-left {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .icon {
+            width: 19px;
+            height: 19px;
+            background: #3e75b2;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .allocation {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .item {
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 4px;
+            margin: 7px;
+            padding: 9px;
+        }
+
+        .item-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 10px;
+            color: #333;
+        }
+
+        .item-price {
+            font-weight: bold;
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .description {
+            color: #666;
+            font-size: 9px;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .shop {
+            margin-top: 5px;
+            font-size: 8px;
+            color: #555;
+        }
+
+        .shop a {
+            color: #2874bd;
+            text-decoration: none;
+            margin-right: 7px;
+        }
+
+        .shop a:hover {
+            text-decoration: underline;
+        }
+
+        .summary {
+            border: 1px solid #dce2e7;
+            border-radius: 5px;
+            background: #f8fafb;
+            padding: 9px;
+            margin-bottom: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+
+        .summary-row:first-child {
+            color: #2874bd;
+            font-weight: bold;
+        }
+
+        .venue-card {
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 4px;
+            margin: 7px;
+            padding: 9px;
+        }
+
+        .venue-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .venue-detail {
+            color: #555;
+            margin: 3px 0;
+            font-size: 9px;
+        }
+
+        .suggestions {
+            padding: 9px 20px;
+            margin: 0;
+        }
+
+        .suggestions li {
+            margin-bottom: 6px;
+            font-size: 9px;
+            color: #555;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            .print-btn {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -62,26 +224,630 @@
 
 <div class="container">
 
-    <h1>🎉 PocketSmart AI</h1>
+    <!-- HEADER -->
 
-    <h2>Your Party Plan</h2>
+    <div class="top-header">
 
-    <div class="details">
-        <strong>Budget:</strong> ₹{{ budget }}<br>
-        <strong>Guests:</strong> {{ guests }}<br>
-        <strong>Event:</strong> {{ event_type }}<br>
-        <strong>Venue:</strong> {{ venue }}
+        <div class="title">
+            Your Party Budget Plan
+        </div>
+
+        <button
+            class="print-btn"
+            onclick="window.print()"
+        >
+            🖨 Print/Save
+        </button>
+
     </div>
 
-    <div class="recommendation">
-        {{ recommendation }}
+
+    <!-- BUDGET -->
+
+    <div class="budget">
+        Budget: ₹{{ "%.2f"|format(budget|float) }}
     </div>
 
-    <a href="/party.html" class="back-button">
-        ← Create Another Party Plan
-    </a>
+
+    <!-- VENUE -->
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-header-left">
+                <span class="icon">📍</span>
+                <span>Venue</span>
+            </div>
+
+            <span class="allocation">
+                ₹{{ "%.2f"|format(recommendation.get("venue", {}).get("allocation", 0)|float) }}
+            </span>
+
+        </div>
+
+        {% if recommendation.get("venue", {}).get("items", []) %}
+
+            {% for item in recommendation.get("venue", {}).get("items", []) %}
+
+            <div class="item">
+
+                <div class="item-top">
+
+                    <span class="item-name">
+                        {{ item.get("name", item.get("item", venue)) }}
+                    </span>
+
+                    <span class="item-price">
+                        ₹{{ "%.2f"|format(item.get("price", 0)|float) }}
+                    </span>
+
+                </div>
+
+                <div class="description">
+                    {{ item.get(
+                        "description",
+                        "Suggested venue based on your event requirements."
+                    ) }}
+                </div>
+
+                {% if item.get("shopping_links", []) %}
+
+                <div class="shop">
+
+                    Shop on:
+
+                    {% for shop in item.get("shopping_links", []) %}
+
+                    {% set shop_lower = shop|lower %}
+
+                    {% if "oyo" in shop_lower %}
+                        {% set shop_url = "https://www.oyorooms.com/" %}
+                    {% elif "swiggy" in shop_lower %}
+                        {% set shop_url = "https://www.swiggy.com/" %}
+                    {% elif "zomato" in shop_lower %}
+                        {% set shop_url = "https://www.zomato.com/" %}
+                    {% elif "amazon" in shop_lower %}
+                        {% set shop_url = "https://www.amazon.in/" %}
+                    {% else %}
+                        {% set shop_url = "#" %}
+                    {% endif %}
+
+                    <a
+                        href="{{ shop_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {{ shop }}
+                    </a>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="item">
+
+                <div class="item-top">
+
+                    <span class="item-name">
+                        {{ venue }}
+                    </span>
+
+                    <span class="item-price">
+                        ₹0.00
+                    </span>
+
+                </div>
+
+                <div class="description">
+                    Venue selected by the user.
+                </div>
+
+                <div class="shop">
+                    Shop on:
+                    <a
+                        href="https://www.oyorooms.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        OYO
+                    </a>
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- CATERING -->
+
+    {% if recommendation.catering["items"] %}
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-header-left">
+                <span class="icon">🍴</span>
+                <span>Catering</span>
+            </div>
+
+            <span class="allocation">
+                ₹{{ "%.2f"|format(
+                    recommendation.catering["allocation"]|float
+                ) }}
+            </span>
+
+        </div>
+
+        {% for item in recommendation.catering["items"] %}
+
+        <div class="item">
+
+            <div class="item-top">
+
+                <span class="item-name">
+                    {{ item.get(
+                        "name",
+                        item.get(
+                            "item",
+                            "Catering Recommendation"
+                        )
+                    ) }}
+                </span>
+
+                <span class="item-price">
+                    ₹{{ "%.2f"|format(
+                        item.get("price", 0)|float
+                    ) }}
+                </span>
+
+            </div>
+
+            <div class="description">
+                {{ item.get(
+                    "description",
+                    "Catering option suitable for your party."
+                ) }}
+            </div>
+
+            {% if item.get("shopping_links", []) %}
+
+            <div class="shop">
+
+                Shop on:
+
+                {% for shop in item.get("shopping_links", []) %}
+
+                {% set shop_lower = shop|lower %}
+
+                {% if "swiggy" in shop_lower %}
+                    {% set shop_url = "https://www.swiggy.com/" %}
+                {% elif "zomato" in shop_lower %}
+                    {% set shop_url = "https://www.zomato.com/" %}
+                {% elif "amazon" in shop_lower %}
+                    {% set shop_url = "https://www.amazon.in/" %}
+                {% elif "oyo" in shop_lower %}
+                    {% set shop_url = "https://www.oyorooms.com/" %}
+                {% else %}
+                    {% set shop_url = "#" %}
+                {% endif %}
+
+                <a
+                    href="{{ shop_url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {{ shop }}
+                </a>
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- DECORATION -->
+
+    {% if recommendation.decoration["items"] %}
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-header-left">
+                <span class="icon">🎈</span>
+                <span>Decoration</span>
+            </div>
+
+            <span class="allocation">
+                ₹{{ "%.2f"|format(
+                    recommendation.decoration["allocation"]|float
+                ) }}
+            </span>
+
+        </div>
+
+        {% for item in recommendation.decoration["items"] %}
+
+        <div class="item">
+
+            <div class="item-top">
+
+                <span class="item-name">
+                    {{ item.get(
+                        "name",
+                        item.get(
+                            "item",
+                            "Decoration Recommendation"
+                        )
+                    ) }}
+                </span>
+
+                <span class="item-price">
+                    ₹{{ "%.2f"|format(
+                        item.get("price", 0)|float
+                    ) }}
+                </span>
+
+            </div>
+
+            <div class="description">
+                {{ item.get(
+                    "description",
+                    "Decoration option suitable for your party."
+                ) }}
+            </div>
+
+            {% if item.get("shopping_links", []) %}
+
+            <div class="shop">
+
+                Shop on:
+
+                {% for shop in item.get("shopping_links", []) %}
+
+                {% set shop_lower = shop|lower %}
+
+                {% if "amazon" in shop_lower %}
+                    {% set shop_url = "https://www.amazon.in/" %}
+                {% elif "swiggy" in shop_lower %}
+                    {% set shop_url = "https://www.swiggy.com/" %}
+                {% elif "zomato" in shop_lower %}
+                    {% set shop_url = "https://www.zomato.com/" %}
+                {% elif "oyo" in shop_lower %}
+                    {% set shop_url = "https://www.oyorooms.com/" %}
+                {% else %}
+                    {% set shop_url = "#" %}
+                {% endif %}
+
+                <a
+                    href="{{ shop_url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {{ shop }}
+                </a>
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ENTERTAINMENT -->
+
+    {% if recommendation.entertainment["items"] %}
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-header-left">
+                <span class="icon">♫</span>
+                <span>Entertainment</span>
+            </div>
+
+            <span class="allocation">
+                ₹{{ "%.2f"|format(
+                    recommendation.entertainment["allocation"]|float
+                ) }}
+            </span>
+
+        </div>
+
+        {% for item in recommendation.entertainment["items"] %}
+
+        <div class="item">
+
+            <div class="item-top">
+
+                <span class="item-name">
+                    {{ item.get(
+                        "name",
+                        item.get(
+                            "item",
+                            "Entertainment Recommendation"
+                        )
+                    ) }}
+                </span>
+
+                <span class="item-price">
+                    ₹{{ "%.2f"|format(
+                        item.get("price", 0)|float
+                    ) }}
+                </span>
+
+            </div>
+
+            <div class="description">
+                {{ item.get(
+                    "description",
+                    "Entertainment option suitable for your party."
+                ) }}
+            </div>
+
+            {% if item.get("shopping_links", []) %}
+
+            <div class="shop">
+
+                Shop on:
+
+                {% for shop in item.get("shopping_links", []) %}
+
+                {% set shop_lower = shop|lower %}
+
+                {% if "amazon" in shop_lower %}
+                    {% set shop_url = "https://www.amazon.in/" %}
+                {% elif "swiggy" in shop_lower %}
+                    {% set shop_url = "https://www.swiggy.com/" %}
+                {% elif "zomato" in shop_lower %}
+                    {% set shop_url = "https://www.zomato.com/" %}
+                {% elif "oyo" in shop_lower %}
+                    {% set shop_url = "https://www.oyorooms.com/" %}
+                {% else %}
+                    {% set shop_url = "#" %}
+                {% endif %}
+
+                <a
+                    href="{{ shop_url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {{ shop }}
+                </a>
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- CONTINGENCY -->
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-header-left">
+                <span class="icon">◆</span>
+                <span>Contingency</span>
+            </div>
+
+            <span class="allocation">
+                ₹{{ "%.2f"|format(
+                    recommendation.get("contingency", {}).get(
+                        "allocation", 0
+                    )|float
+                ) }}
+            </span>
+
+        </div>
+
+        <div class="item">
+
+            <div class="item-top">
+
+                <span class="item-name">
+                    Unexpected expenses
+                </span>
+
+                <span class="item-price">
+                    ₹{{ "%.2f"|format(
+                        recommendation.get("contingency", {}).get(
+                            "allocation", 0
+                        )|float
+                    ) }}
+                </span>
+
+            </div>
+
+            <div class="description">
+                Buffer for unexpected costs.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary">
+
+        <div class="summary-row">
+
+            <span>Total Budget</span>
+
+            <span>
+                ₹{{ "%.2f"|format(budget|float) }}
+            </span>
+
+        </div>
+
+        <div class="summary-row">
+
+            <span>Allocated</span>
+
+            <span>
+                ₹{{ "%.2f"|format(
+                    (
+                        recommendation.catering["allocation"]
+                        + recommendation.decoration["allocation"]
+                        + recommendation.entertainment["allocation"]
+                        + recommendation.get("venue", {}).get("allocation", 0)
+                        + recommendation.get("contingency", {}).get("allocation", 0)
+                    )|float
+                ) }}
+            </span>
+
+        </div>
+
+        <div class="summary-row">
+
+            <span>Remaining</span>
+
+            <span>
+                ₹{{ "%.2f"|format(
+                    recommendation.get("remaining_budget", budget)|float
+                ) }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- VENUE SUGGESTIONS -->
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-header-left">
+                <span class="icon">📍</span>
+                <span>Venue Suggestions</span>
+            </div>
+
+        </div>
+
+        <div class="venue-card">
+
+            <div class="venue-name">
+                {{ venue }}
+            </div>
+
+            <div class="venue-detail">
+                ▪ Type: {{ venue }}
+            </div>
+
+            <div class="venue-detail">
+                ▪ Location: As selected by user
+            </div>
+
+            <div class="venue-detail">
+                ▪ Suitable for {{ guests }} guests
+            </div>
+
+            <div class="shop">
+
+                <a
+                    href="https://www.oyorooms.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    🌐 Website
+                </a>
+
+                &nbsp;
+
+                <a
+                    href="https://www.google.com/maps"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    🗺 View on Map
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADDITIONAL SUGGESTIONS -->
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-header-left">
+                <span class="icon">💡</span>
+                <span>Additional Suggestions</span>
+            </div>
+
+        </div>
+
+        <ul class="suggestions">
+
+            {% for suggestion in recommendation.get(
+                "additional_suggestions",
+                []
+            ) %}
+
+            <li>
+                {{ suggestion }}
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
 
 </div>
 
 </body>
 </html>
+
+
+
+

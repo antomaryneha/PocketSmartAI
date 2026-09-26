@@ -4,130 +4,302 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PocketSmart AI - Home Recommendation</title>
+    <title>Home Interior Recommendations - PocketSmart</title>
 
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 30px 15px;
-            color: #222;
+            background: #f5f7fb;
+            color: #183b63;
         }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #12345b;
+            color: white;
+            padding: 9px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        .nav-links a:hover {
+            color: #ffbd45;
+        }
+
+        /* PAGE HEADER */
+
+        .page-header {
+            background: linear-gradient(120deg, #3978b7, #1d426e);
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            font-size: 12px;
+        }
+
+        /* MAIN */
 
         .container {
-            max-width: 850px;
-            margin: auto;
+            width: 92%;
+            max-width: 1000px;
+            margin: 25px auto 50px;
         }
 
-        .header {
-            background: #222;
-            color: white;
-            padding: 30px;
-            border-radius: 14px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        /* BUDGET SUMMARY */
 
-        .header h1 {
-            margin: 0 0 8px;
-            font-size: 30px;
-        }
-
-        .header p {
-            margin: 0;
-            color: #ddd;
-        }
-
-        .details {
+        .card {
             background: white;
-            padding: 22px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        .details h2 {
-            margin-top: 0;
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .detail-box {
-            background: #f1f3f5;
-            padding: 15px;
             border-radius: 8px;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.10);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .card-title {
+            background: #3978b7;
+            color: white;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 18px;
+        }
+
+        .summary-box {
+            background: #f1f5f9;
+            border-radius: 6px;
+            padding: 15px;
             text-align: center;
         }
 
-        .detail-box strong {
+        .summary-box small {
             display: block;
-            margin-bottom: 7px;
-            color: #555;
+            color: #60748a;
+            font-size: 11px;
+            margin-bottom: 6px;
         }
+
+        .summary-box strong {
+            font-size: 18px;
+            color: #173f69;
+        }
+
+        /* ROOMS */
+
+        .room-info {
+            padding: 15px 18px;
+            border-top: 1px solid #e3e8ef;
+            font-size: 12px;
+        }
+
+        .room-info strong {
+            color: #173f69;
+        }
+
+        /* RECOMMENDATION SECTIONS */
 
         .recommendation-card {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.10);
+            margin-bottom: 20px;
+            overflow: hidden;
         }
 
-        .recommendation-card h2 {
-            margin-top: 0;
+        .recommendation-heading {
+            background: #3978b7;
+            color: white;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: bold;
         }
 
-        .recommendation {
-            line-height: 1.8;
-            white-space: pre-wrap;
-            font-size: 16px;
-            color: #333;
+        .allocation {
+            padding: 12px 16px;
+            background: #edf4fb;
+            color: #24557f;
+            font-size: 12px;
+            font-weight: bold;
         }
 
-        .success {
-            background: #f1f8f3;
-            border-left: 5px solid #333;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 6px;
+        .table-wrapper {
+            overflow-x: auto;
         }
 
-        .back-button {
-            display: block;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th {
+            background: #e6eef7;
+            color: #173f69;
+            font-size: 11px;
+            padding: 11px 9px;
+            text-align: left;
+            border-bottom: 1px solid #ccd8e5;
+        }
+
+        td {
+            padding: 11px 9px;
+            font-size: 11px;
+            color: #34495e;
+            border-bottom: 1px solid #e5e9ee;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #173f69;
+        }
+
+        .price {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .quantity {
             text-align: center;
-            margin-top: 20px;
-            padding: 13px;
-            background: #222;
+        }
+
+        /* SHOPPING LINKS */
+
+        .shopping-links {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .shop-link {
+            display: inline-block;
+            padding: 5px 8px;
+            background: #3978b7;
             color: white;
             text-decoration: none;
-            border-radius: 7px;
-            font-size: 16px;
+            border-radius: 4px;
+            font-size: 9px;
         }
 
-        .back-button:hover {
-            background: #444;
+        .shop-link:hover {
+            background: #12345b;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
+        /* SUGGESTIONS */
+
+        .suggestions {
+            padding: 17px 20px;
+        }
+
+        .suggestions ul {
+            padding-left: 18px;
+        }
+
+        .suggestions li {
+            font-size: 11px;
+            line-height: 1.7;
+            margin-bottom: 5px;
+        }
+
+        /* BUTTONS */
+
+        .actions {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 23px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .primary {
+            background: #12345b;
+            color: white;
+        }
+
+        .secondary {
+            background: white;
+            color: #12345b;
+            border: 1px solid #3978b7;
+        }
+
+        .primary:hover,
+        .secondary:hover {
+            opacity: 0.9;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
             }
 
-            .detail-grid {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .summary {
                 grid-template-columns: 1fr;
             }
 
-            .header h1 {
-                font-size: 25px;
+            .page-header h1 {
+                font-size: 21px;
+            }
+
+            .container {
+                width: 95%;
             }
         }
     </style>
@@ -135,57 +307,371 @@
 
 <body>
 
-<div class="container">
+    <!-- NAVIGATION -->
 
-    <div class="header">
-        <h1>🏠 PocketSmart AI</h1>
-        <p>Smart Home Interior Recommendation</p>
-    </div>
+    <nav class="navbar">
 
-    <div class="details">
+        <div class="logo">
+            ▣ PocketSmart
+        </div>
 
-        <h2>📋 Your Plan</h2>
+        <div class="nav-links">
 
-        <div class="detail-grid">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/home">🏠 Home Budget</a>
+            <a href="/party">🎉 Party Budget</a>
+            <a href="/jewelry">💎 Jewelry Budget</a>
+            <a href="/logout">⇥ Logout</a>
 
-            <div class="detail-box">
-                <strong>Budget</strong>
-                ₹{{ budget }}
+        </div>
+
+    </nav>
+
+
+    <!-- PAGE HEADER -->
+
+    <section class="page-header">
+
+        <h1>
+            Your Personalized Budget Plan
+        </h1>
+
+        <p>
+            Home Interior Recommendations
+        </p>
+
+    </section>
+
+
+    <main class="container">
+
+
+        <!-- BUDGET SUMMARY -->
+
+        <section class="card">
+
+            <div class="card-title">
+                📊 Budget Summary
             </div>
 
-            <div class="detail-box">
-                <strong>Room</strong>
+            <div class="summary">
+
+                <div class="summary-box">
+
+                    <small>Total Budget</small>
+
+                    <strong>
+                        ₹{{ recommendation.total_budget }}
+                    </strong>
+
+                </div>
+
+                <div class="summary-box">
+
+                    <small>Remaining Budget</small>
+
+                    <strong>
+                        ₹{{ recommendation.remaining_budget }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <div class="room-info">
+
+                <strong>Rooms:</strong>
                 {{ room }}
+
             </div>
 
-            <div class="detail-box">
-                <strong>Quantity</strong>
-                {{ quantity }}
+        </section>
+
+
+        <!-- LIGHTING -->
+
+        <section class="recommendation-card">
+
+            <div class="recommendation-heading">
+                💡 Lighting
             </div>
 
+            <div class="allocation">
+                Allocation: ₹{{ recommendation.lighting.allocation }}
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Shopping Links</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in recommendation.lighting["items"] %}
+
+                        <tr>
+
+                            <td class="item-name">
+                                {{ item.item }}
+                            </td>
+
+                            <td>
+                                {{ item.description }}
+                            </td>
+
+                            <td class="price">
+                                ₹{{ item.price }}
+                            </td>
+
+                            <td class="quantity">
+                                {{ item.quantity }}
+                            </td>
+
+                            <td>
+
+                                <div class="shopping-links">
+
+                                    {% for shop in item.shopping_links %}
+
+                                        <a href="{% if shop == 'Amazon' %}https://www.amazon.in/{% elif shop == 'IKEA' %}https://www.ikea.com/in/en/{% else %}#{% endif %}"
+                                           class="shop-link"
+                                           target="_blank"
+                                           rel="noopener noreferrer">
+                                            {{ shop }}
+                                         </a>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- CEILING FANS -->
+
+        <section class="recommendation-card">
+
+            <div class="recommendation-heading">
+                🌀 Ceiling Fans
+            </div>
+
+            <div class="allocation">
+                Allocation: ₹{{ recommendation.ceiling_fans.allocation }}
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Shopping Links</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                       {% for item in recommendation.ceiling_fans["items"] %}
+
+                        <tr>
+
+                            <td class="item-name">
+                                {{ item.item }}
+                            </td>
+
+                            <td>
+                                {{ item.description }}
+                            </td>
+
+                            <td class="price">
+                                ₹{{ item.price }}
+                            </td>
+
+                            <td class="quantity">
+                                {{ item.quantity }}
+                            </td>
+
+                            <td>
+
+                                <div class="shopping-links">
+
+                                    {% for shop in item.shopping_links %}
+
+                                       <a href="{% if shop == 'Amazon' %}https://www.amazon.in/{% elif shop == 'IKEA' %}https://www.ikea.com/in/en/{% else %}#{% endif %}"
+                                          class="shop-link"
+                                          target="_blank"
+                                          rel="noopener noreferrer">
+                                           {{ shop }}
+                                       </a>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- FURNITURE -->
+
+        <section class="recommendation-card">
+
+            <div class="recommendation-heading">
+                🛋 Furniture
+            </div>
+
+            <div class="allocation">
+                Allocation: ₹{{ recommendation.furniture.allocation }}
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Shopping Links</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in recommendation.furniture["items"] %}
+                        <tr>
+
+                            <td class="item-name">
+                                {{ item.item }}
+                            </td>
+
+                            <td>
+                                {{ item.description }}
+                            </td>
+
+                            <td class="price">
+                                ₹{{ item.price }}
+                            </td>
+
+                            <td class="quantity">
+                                {{ item.quantity }}
+                            </td>
+
+                            <td>
+
+                                <div class="shopping-links">
+
+                                    {% for shop in item.shopping_links %}
+
+                                        <a href="#" class="shop-link">
+                                            {{ shop }}
+                                        </a>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADDITIONAL SUGGESTIONS -->
+
+        <section class="card">
+
+            <div class="card-title">
+                💡 Additional Suggestions
+            </div>
+
+            <div class="suggestions">
+
+                <ul>
+
+                    {% for suggestion in recommendation.additional_suggestions %}
+
+                        <li>
+                            {{ suggestion }}
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACTION BUTTONS -->
+
+        <div class="actions">
+
+            <a href="/home" class="button primary">
+                ← Create Another Plan
+            </a>
+
+            <a href="/history" class="button secondary">
+                View History
+            </a>
+
         </div>
 
-    </div>
-
-    <div class="recommendation-card">
-
-        <h2>🤖 AI Recommendation</h2>
-
-        <div class="recommendation">
-            {{ recommendation }}
-        </div>
-
-        <div class="success">
-            ✅ This recommendation was generated by PocketSmart AI based on your budget and requirements.
-        </div>
-
-    </div>
-
-    <a href="/" class="back-button">
-        ← Create Another Plan
-    </a>
-
-</div>
+    </main>
 
 </body>
 </html>

@@ -1,111 +1,442 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PocketSmart AI - Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PocketSmart - Dashboard</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
         }
 
-        header {
-            background: #222;
+        body {
+            background: #eef3fa;
+            color: #172554;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #12345a;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
             color: white;
-            padding: 20px;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo span {
+            color: #f5a623;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .nav-links a:hover {
+            color: #f5a623;
+        }
+
+        /* WELCOME */
+        .welcome-section {
+            background: linear-gradient(110deg, #3d74b2, #173a62);
+            color: white;
             text-align: center;
+            padding: 42px 20px;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
+        .welcome-section h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
-        .welcome {
-            text-align: center;
-            margin-bottom: 30px;
+        .welcome-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 620px;
+            margin: auto;
         }
 
-        .cards {
+        /* MAIN */
+        .main-container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 35px 25px 45px;
+        }
+
+        /* PLANNER CARDS */
+        .planner-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
         }
 
-        .card {
+        .planner-card {
             background: white;
-            padding: 25px;
             border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(15, 23, 42, 0.12);
         }
 
-        .card h2 {
+        .planner-image {
+            width: 100%;
+            height: 145px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 18px;
+        }
+
+        .card-title {
+            color: #2867ad;
+            font-size: 16px;
+            font-weight: 700;
             margin-bottom: 10px;
         }
 
-        .card a {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 18px;
-            background: #222;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
+        .card-content p {
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.6;
+            min-height: 58px;
         }
 
-        .card a:hover {
-            background: #444;
+        .get-started {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(90deg, #3e7bbb, #12345a);
+            border-radius: 25px;
+            padding: 11px;
+            margin-top: 16px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .get-started:hover {
+            opacity: 0.9;
+        }
+
+        /* HISTORY BUTTON */
+        .history-button-container {
+            text-align: center;
+            margin: 12px 0 35px;
+        }
+
+        .history-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #f5a623;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* RECENT ACTIVITY */
+        .activity {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.10);
+        }
+
+        .activity-header {
+            background: linear-gradient(90deg, #3e75b2, #1d4f83);
+            color: white;
+            padding: 16px 20px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2e67a2;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-text h4 {
+            font-size: 12px;
+            color: #173a62;
+            margin-bottom: 5px;
+        }
+
+        .activity-text p {
+            font-size: 10px;
+            color: #94a3b8;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #12345a;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-size: 10px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 800px) {
+
+            .navbar {
+                height: auto;
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .planner-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-section h1 {
+                font-size: 27px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <h1>🤖 PocketSmart AI</h1>
-    <p>Smart Budget & Recommendation Assistant</p>
-</header>
+    <!-- NAVBAR -->
+    <header class="navbar">
 
-<div class="container">
-
-    <div class="welcome">
-        <h2>Welcome to your Dashboard</h2>
-        <p>Choose a planner to get AI-powered budget recommendations.</p>
-    </div>
-
-    <div class="cards">
-
-        <div class="card">
-            <h2>🏠 Home Interior</h2>
-            <p>Plan furniture, lighting and decoration within your budget.</p>
-            <a href="/">Open Planner</a>
+        <div class="logo">
+            <span>▣</span> PocketSmart
         </div>
 
-        <div class="card">
-            <h2>🎉 Party Planning</h2>
-            <p>Plan catering, decoration and entertainment for your event.</p>
-            <a href="/party">Open Planner</a>
+        <nav class="nav-links">
+            <a href="/">⌂ Home Planner</a>
+            <a href="/party">♣ Party Planner</a>
+            <a href="/jewelry">◆ Jewelry Planner</a>
+            <a href="/history">↶ History</a>
+            <a href="/logout">⇥ Logout</a>
+        </nav>
+
+    </header>
+
+
+    <!-- WELCOME -->
+    <section class="welcome-section">
+
+        <h1>Welcome, {{ name if name else "User" }}!</h1>
+
+        <p>
+            Choose a budget planner to get started with your personalized
+            financial planning experience
+        </p>
+
+    </section>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+
+        <!-- PLANNER CARDS -->
+        <section class="planner-cards">
+
+            <!-- HOME -->
+            <div class="planner-card">
+
+                <img
+                    class="planner-image"
+                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80"
+                    alt="Home interior"
+                >
+
+                <div class="card-content">
+
+                    <div class="card-title">
+                        🏠 Home Budget Planner
+                    </div>
+
+                    <p>
+                        Plan your interior design budget efficiently with
+                        AI-powered recommendations for furniture,
+                        lighting, and more.
+                    </p>
+
+                    <a href="/home" class="get-started">
+                       Get Started
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- PARTY -->
+            <div class="planner-card">
+
+                <img
+                    class="planner-image"
+                    src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80"
+                    alt="Party balloons"
+                >
+
+                <div class="card-content">
+
+                    <div class="card-title">
+                        🎉 Party Budget Planner
+                    </div>
+
+                    <p>
+                        Plan your perfect event with budget allocations
+                        for venue, catering, decorations, and
+                        entertainment.
+                    </p>
+
+                    <a href="/party" class="get-started">
+                        Get Started
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- JEWELRY -->
+            <div class="planner-card">
+
+                <img
+                    class="planner-image"
+                    src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"
+                    alt="Jewelry"
+                >
+
+                <div class="card-content">
+
+                    <div class="card-title">
+                        💎 Jewelry Budget Planner
+                    </div>
+
+                    <p>
+                        Find the ideal jewelry pieces for any occasion
+                        that match your outfit and stay within your
+                        budget.
+                    </p>
+
+                    <a href="/jewelry" class="get-started">
+                        Get Started
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HISTORY -->
+        <div class="history-button-container">
+
+            <a href="/history" class="history-button">
+                ↶ View All Recommendation History
+            </a>
+
         </div>
 
-        <div class="card">
-            <h2>💍 Jewelry</h2>
-            <p>Get jewelry recommendations based on your budget and style.</p>
-            <a href="/jewelry">Open Planner</a>
-        </div>
 
-        <div class="card">
-            <h2>📋 Recommendation History</h2>
-            <p>View your previous AI-generated recommendations.</p>
-            <a href="/history">View History</a>
-        </div>
+        <!-- RECENT ACTIVITY -->
+        <section class="activity">
 
-    </div>
+            <div class="activity-header">
+                ↶ &nbsp; Recent Activity
+            </div>
 
-</div>
+            <div class="activity-item">
+
+                <div class="activity-icon">⌂</div>
+
+                <div class="activity-text">
+                    <h4>Home Budget Plan</h4>
+                    <p>Budget: $5,000 · Created on May 7, 2025</p>
+                </div>
+
+            </div>
+
+
+            <div class="activity-item">
+
+                <div class="activity-icon">♟</div>
+
+                <div class="activity-text">
+                    <h4>Birthday Party Budget Plan</h4>
+                    <p>Budget: $1,200 for 30 guests · Created on May 5, 2025</p>
+                </div>
+
+            </div>
+
+
+            <div class="activity-item">
+
+                <div class="activity-icon">◆</div>
+
+                <div class="activity-text">
+                    <h4>Jewelry Budget Plan</h4>
+                    <p>Budget: $800 for Anniversary · Created on April 20, 2025</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 PocketSmart. All rights reserved.
+    </footer>
 
 </body>
 </html>

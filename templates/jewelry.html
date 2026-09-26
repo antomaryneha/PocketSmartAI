@@ -7,109 +7,453 @@
     <title>PocketSmart AI - Jewelry Planner</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 30px;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        h1, h2 {
-            text-align: center;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 18px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 8px;
+        * {
             box-sizing: border-box;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 25px;
-            border: none;
-            border-radius: 6px;
-            background: #222;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5f8;
+            color: #24344d;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #082f52;
             color: white;
-            font-size: 16px;
+            padding: 14px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .nav-links a:hover {
+            color: #ffd45c;
+        }
+
+        /* HEADER */
+        .hero {
+            background: linear-gradient(135deg, #2f67a1, #174c7b);
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .hero p {
+            margin: 10px 0 0;
+            font-size: 14px;
+        }
+
+        /* MAIN CARD */
+        .container {
+            max-width: 760px;
+            margin: 25px auto 35px;
+            padding: 0 18px;
+        }
+
+        .planner-card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.10);
+        }
+
+        /* SECTIONS */
+        .section {
+            background: #eef4f9;
+            border-radius: 7px;
+            padding: 16px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            color: #245b8e;
+            font-size: 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #9eb6ca;
+            padding-bottom: 7px;
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #35445a;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid #d5dce3;
+            border-radius: 5px;
+            padding: 11px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            background: white;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #347fc1;
+        }
+
+        textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        /* IMAGE */
+        .image-area {
+            background: white;
+            border: 1px dashed #b9c7d3;
+            border-radius: 6px;
+            min-height: 130px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 220px;
+            display: none;
+            margin: auto;
+            border-radius: 6px;
+        }
+
+        .remove-btn {
+            display: none;
+            margin: 10px auto 0;
+            background: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 7px 14px;
             cursor: pointer;
         }
 
-        button:hover {
-            background: #444;
+        /* BUTTON */
+        .submit-area {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #3c82c5, #16558d);
+            color: white;
+            border: none;
+            border-radius: 22px;
+            padding: 12px 30px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #174c7b;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #082f52;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 11px;
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 12px 5%;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .hero h1 {
+                font-size: 23px;
+            }
+
+            .planner-card {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <div class="logo">
+        💎 PocketSmart
+    </div>
+
+    <div class="nav-links">
+        <a href="/dashboard">⌂ Dashboard</a>
+        <a href="/home">🏠 Home Budget</a>
+        <a href="/party">🎉 Party Budget</a>
+        <a href="/jewelry">💎 Jewelry Budget</a>
+        <a href="/history">↻ History</a>
+        <a href="/logout">⇥ Logout</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+
+    <h1>Jewelry Budget Planner</h1>
+
+    <p>
+        Get AI-powered jewelry recommendations within your budget for any occasion
+    </p>
+
+</section>
+
+
+<!-- PLANNER -->
 <div class="container">
 
-    <h1>💎 PocketSmart AI</h1>
-    <h2>Jewelry Budget Planner</h2>
+    <div class="planner-card">
 
-    <form action="/generate-jewelry" method="post" enctype="multipart/form-data">
-        <label for="budget">Budget (₹)</label>
-        <input
-            type="number"
-            id="budget"
-            name="budget"
-            min="1"
-            placeholder="Enter your budget"
-            required
+        <form
+            action="/generate-jewelry"
+            method="post"
+            enctype="multipart/form-data"
         >
 
-        <label for="occasion">Occasion</label>
-        <select id="occasion" name="occasion" required>
-            <option value="">Select an occasion</option>
-            <option value="Wedding">Wedding</option>
-            <option value="Engagement">Engagement</option>
-            <option value="Birthday">Birthday</option>
-            <option value="Festival">Festival</option>
-            <option value="Party">Party</option>
-            <option value="Casual">Casual</option>
-        </select>
-        <label for="outfit_image">Outfit Image (Optional)</label>
-<input
-    type="file"
-    id="outfit_image"
-    name="outfit_image"
-    accept="image/*"
->
-        <label for="style">Style Preference</label>
-        <select id="style" name="style" required>
-            <option value="">Select a style</option>
-            <option value="Traditional">Traditional</option>
-            <option value="Modern">Modern</option>
-            <option value="Minimalist">Minimalist</option>
-            <option value="Elegant">Elegant</option>
-            <option value="Statement">Statement</option>
-        </select>
+            <!-- BUDGET -->
+            <div class="section">
 
-        <button type="submit">
-            Get AI Jewelry Recommendations
-        </button>
+                <div class="section-title">
+                    💰 Budget Details
+                </div>
 
-    </form>
+                <div class="field">
+
+                    <label for="budget">
+                        Total Budget (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="budget"
+                        name="budget"
+                        min="1"
+                        placeholder="Enter your budget"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- OCCASION -->
+            <div class="section">
+
+                <div class="section-title">
+                    🎯 Occasion & Preferences
+                </div>
+
+                <div class="field">
+
+                    <label for="occasion">
+                        🎉 Occasion
+                    </label>
+
+                    <select
+                        id="occasion"
+                        name="occasion"
+                        required
+                        style="width:100%; padding:11px; border:1px solid #d5dce3; border-radius:5px; background:white;"
+                    >
+
+                        <option value="">
+                            Select an occasion
+                        </option>
+
+                        <option value="Wedding">
+                            Wedding
+                        </option>
+
+                        <option value="Engagement">
+                            Engagement
+                        </option>
+
+                        <option value="Birthday">
+                            Birthday
+                        </option>
+
+                        <option value="Festival">
+                            Festival
+                        </option>
+
+                        <option value="Party">
+                            Party
+                        </option>
+
+                        <option value="Casual">
+                            Casual
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="style">
+                        💎 Style Preferences
+                    </label>
+
+                    <textarea
+                        id="style"
+                        name="style"
+                        placeholder="Describe your style preferences, materials, colors, etc."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE -->
+            <div class="section">
+
+                <div class="section-title">
+                    👕 Upload Outfit Image
+                </div>
+
+                <div class="image-area">
+
+                    <input
+                        type="file"
+                        id="outfit_image"
+                        name="outfit_image"
+                        accept="image/*"
+                    >
+
+                    <img
+                        id="imagePreview"
+                        class="image-preview"
+                        alt="Outfit preview"
+                    >
+
+                    <button
+                        type="button"
+                        id="removeImage"
+                        class="remove-btn"
+                    >
+                        Remove Image
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTON -->
+            <div class="submit-area">
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    ✨ Get Recommendations
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
+
+
+<!-- FOOTER -->
+<footer>
+    © 2026 PocketSmart | Smart Budget Solutions
+</footer>
+
+
+<script>
+
+    const imageInput = document.getElementById("outfit_image");
+    const imagePreview = document.getElementById("imagePreview");
+    const removeImage = document.getElementById("removeImage");
+
+    imageInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+
+                imagePreview.src = event.target.result;
+                imagePreview.style.display = "block";
+                removeImage.style.display = "block";
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+    });
+
+
+    removeImage.addEventListener("click", function () {
+
+        imageInput.value = "";
+        imagePreview.src = "";
+        imagePreview.style.display = "none";
+        removeImage.style.display = "none";
+
+    });
+
+</script>
 
 </body>
 </html>

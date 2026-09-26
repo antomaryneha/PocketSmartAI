@@ -1,86 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PocketSmart AI - Jewelry Recommendation</title>
+    <title>PocketSmart AI - Jewelry Recommendations</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
             margin: 0;
-            padding: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #222;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .navbar {
+            background: #092f52;
+            color: white;
+            padding: 15px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
 
-        h1, h2 {
-            text-align: center;
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
         }
 
-        .details {
-            background: #f1f3f5;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            line-height: 1.8;
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .recommendation {
-            line-height: 1.7;
-            white-space: pre-wrap;
-            font-size: 16px;
-        }
-
-        .back-button {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            padding: 12px;
-            background: #222;
+        .nav-links a {
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            font-size: 13px;
         }
 
-        .back-button:hover {
-            background: #444;
+        .page {
+            width: 92%;
+            max-width: 900px;
+            margin: 30px auto 40px;
+        }
+
+        .top-button-area {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .get-button {
+            display: inline-block;
+            background: linear-gradient(90deg, #3d78b5, #164b78);
+            color: white;
+            text-decoration: none;
+            padding: 11px 30px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(25, 76, 120, 0.25);
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 25px;
+            color: #333;
+            margin: 0 0 25px;
+        }
+
+        .main-container {
+            background: white;
+            padding: 8px 25px 30px;
+            border-radius: 14px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .section {
+            margin-top: 22px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e8ec;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            background: linear-gradient(90deg, #3978b5, #103f67);
+            color: white;
+            padding: 11px 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .budget-content {
+            padding: 18px 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            font-size: 13px;
+        }
+
+        .budget-content strong {
+            color: #14568c;
+        }
+
+        .outfit-content {
+            padding: 15px;
+            background: #f7f7fb;
+        }
+
+        .outfit-info {
+            background: #eaf0f5;
+            border-radius: 6px;
+            padding: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 13px;
+        }
+
+        .outfit-info span {
+            font-weight: bold;
+        }
+
+        .jewelry-content {
+            padding: 8px 15px 15px;
+        }
+
+        .jewelry-item {
+            position: relative;
+            border-left: 3px solid #3a7bb9;
+            padding: 15px 15px 18px;
+            margin: 0 0 10px;
+        }
+
+        .jewelry-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .item-price {
+            background: #087be5;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .item-description {
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 10px 0;
+            color: #444;
+        }
+
+        .item-style {
+            font-size: 12px;
+            margin-bottom: 14px;
+        }
+
+        .shop-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .shop-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .shop {
+            display: inline-block;
+            background: #f0f4f8;
+            color: #3e6283;
+            border-radius: 15px;
+            padding: 5px 9px;
+            font-size: 10px;
+            text-decoration: none;
+        }
+
+        .shop:hover {
+            background: #dce9f4;
+        }
+
+        .tips-content {
+            padding: 13px 18px;
+            background: #fffaf0;
+            border-left: 3px solid #e8c35a;
+        }
+
+        .tip {
+            font-size: 12px;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .tip::before {
+            content: "●";
+            color: #3b78b3;
+            margin-right: 8px;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .action-button {
+            display: inline-block;
+            background: #286ca5;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin: 5px;
+        }
+
+        .action-button.secondary {
+            background: #586b7c;
+        }
+
+        footer {
+            background: #092f52;
+            color: white;
+            text-align: center;
+            padding: 17px;
+            font-size: 11px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 650px) {
+
+            .main-container {
+                padding: 8px 15px 25px;
+            }
+
+            .budget-content {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .outfit-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .item-heading {
+                align-items: flex-start;
+            }
+
+            .page {
+                width: 95%;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="container">
+    <!-- NAVBAR -->
+    <nav class="navbar">
 
-    <h1>💎 PocketSmart AI</h1>
+        <div class="logo">
+            💎 PocketSmart
+        </div>
 
-    <h2>Your Jewelry Recommendation</h2>
+        <div class="nav-links">
 
-    <div class="details">
-        <strong>Budget:</strong> ₹{{ budget }}<br>
-        <strong>Occasion:</strong> {{ occasion }}<br>
-        <strong>Style:</strong> {{ style }}
+            <a href="/dashboard">
+                ⌂ Dashboard
+            </a>
+
+            <a href="/home">
+                🏠 Home Budget
+            </a>
+
+            <a href="/party">
+                🎉 Party Budget
+            </a>
+
+            <a href="/jewelry">
+                💎 Jewelry Budget
+            </a>
+
+            <a href="/history">
+                ↻ History
+            </a>
+
+            <a href="/logout">
+                ⇥ Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <div class="page">
+
+        <!-- GET RECOMMENDATIONS BUTTON -->
+        <div class="top-button-area">
+
+            <a href="/jewelry" class="get-button">
+                ✎ Get Recommendations
+            </a>
+
+        </div>
+
+
+        <!-- PAGE TITLE -->
+        <h1 class="main-title">
+            Your Personalized Jewelry Recommendations
+        </h1>
+
+
+        <div class="main-container">
+
+
+            <!-- BUDGET SUMMARY -->
+            <div class="section">
+
+                <div class="section-header">
+                    ◉ Budget Summary
+                </div>
+
+                <div class="budget-content">
+
+                    <div>
+
+                        <strong>Total Budget:</strong>
+
+                        ₹{{ "%.2f"|format(recommendation.total_budget) }}
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>Remaining Budget:</strong>
+
+                        ₹{{ "%.2f"|format(
+                            recommendation.total_budget -
+                            (recommendation["items"] | sum(attribute="price"))
+                        ) }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- OUTFIT ANALYSIS -->
+            <div class="section">
+
+                <div
+                    class="section-header"
+                    style="background:#f2f1f7;color:#333;"
+                >
+
+                    👕 Outfit Analysis
+
+                </div>
+
+
+                <div class="outfit-content">
+
+                    <div class="outfit-info">
+
+                        <div>
+
+                            🎨
+
+                            <span>
+                                Colors:
+                            </span>
+
+                            {{ recommendation.outfit_analysis.colors }}
+
+                        </div>
+
+
+                        <div>
+
+                            🏷
+
+                            <span>
+                                Style:
+                            </span>
+
+                            {{ recommendation.outfit_analysis.style }}
+
+                        </div>
+
+
+                        <div>
+
+                            ♙
+
+                            <span>
+                                Formality:
+                            </span>
+
+                            {{ recommendation.outfit_analysis.formality }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- JEWELRY RECOMMENDATIONS -->
+            <div class="section">
+
+                <div class="section-header">
+
+                    💎 Jewelry Recommendations
+
+                </div>
+
+
+                <div class="jewelry-content">
+
+
+                    {% for item in recommendation["items"] %}
+
+
+                    <div class="jewelry-item">
+
+
+                        <!-- ITEM NAME + PRICE -->
+                        <div class="item-heading">
+
+
+                            <div class="item-name">
+
+                                {% if "ring" in item.item|lower %}
+
+                                    ○
+
+                                {% elif "watch" in item.item|lower %}
+
+                                    💎
+
+                                {% else %}
+
+                                    ●
+
+                                {% endif %}
+
+
+                                {{ item.item }}
+
+                            </div>
+
+
+                            <div class="item-price">
+
+                                ₹{{ "%.2f"|format(item.price) }}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- DESCRIPTION -->
+                        <div class="item-description">
+
+                            <strong>
+                                Description:
+                            </strong>
+
+                            {{ item.description }}
+
+                        </div>
+
+
+
+                        <!-- STYLE -->
+                        <div class="item-style">
+
+                            <strong>
+                                Style:
+                            </strong>
+
+                            {{ item.style }}
+
+                        </div>
+
+
+
+                        <!-- SHOP TITLE -->
+                        <div class="shop-title">
+
+                            🛒 Shop For This:
+
+                        </div>
+
+
+
+                        <!-- SHOPPING LINKS -->
+                        <div class="shop-links">
+
+
+                            {% for shop in item.shopping_links %}
+
+
+                                {% if shop == "Amazon" %}
+
+                                    <a
+                                        class="shop"
+                                        href="https://www.amazon.in/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        🛍 Amazon
+                                    </a>
+
+
+                                {% elif shop == "Flipkart" %}
+
+                                    <a
+                                        class="shop"
+                                        href="https://www.flipkart.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        🛒 Flipkart
+                                    </a>
+
+
+                                {% elif shop == "Bluestone" %}
+
+                                    <a
+                                        class="shop"
+                                        href="https://www.bluestone.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        💎 Bluestone
+                                    </a>
+
+
+                                {% elif shop == "Tanishq" %}
+
+                                    <a
+                                        class="shop"
+                                        href="https://www.tanishq.co.in/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        💎 Tanishq
+                                    </a>
+
+
+                                {% elif shop == "CaratLane" %}
+
+                                    <a
+                                        class="shop"
+                                        href="https://www.caratlane.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        💎 CaratLane
+                                    </a>
+
+
+                                {% elif shop == "Melorra" %}
+
+                                    <a
+                                        class="shop"
+                                        href="https://www.melorra.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        💎 Melorra
+                                    </a>
+
+
+                                {% elif shop == "Mia" %}
+
+                                    <a
+                                        class="shop"
+                                        href="https://www.miabytanishq.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        💎 Mia
+                                    </a>
+
+
+                                {% else %}
+
+                                    <span class="shop">
+                                        {{ shop }}
+                                    </span>
+
+                                {% endif %}
+
+
+                            {% endfor %}
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STYLING TIPS -->
+            <div class="section">
+
+                <div class="section-header">
+
+                    💡 Styling Tips
+
+                </div>
+
+
+                <div class="tips-content">
+
+
+                    {% for suggestion in recommendation.additional_suggestions %}
+
+                    <div class="tip">
+
+                        {{ suggestion }}
+
+                    </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTION BUTTONS -->
+            <div class="actions">
+
+                <a
+                    href="/jewelry"
+                    class="action-button"
+                >
+                    ← Create Another Jewelry Plan
+                </a>
+
+
+                <a
+                    href="/history"
+                    class="action-button secondary"
+                >
+                    View Recommendation History
+                </a>
+
+            </div>
+
+
+        </div>
+
     </div>
 
-    <div class="recommendation">
-        {{ recommendation }}
-    </div>
 
-    <a href="/jewelry" class="back-button">
-        ← Create Another Jewelry Plan
-    </a>
 
-</div>
+    <!-- FOOTER -->
+    <footer>
+
+        © 2026 PocketSmart AI |
+        Smart Budget & Recommendation Assistant
+
+    </footer>
+
 
 </body>
+
 </html>

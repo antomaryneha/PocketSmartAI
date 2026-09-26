@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home Interior Budget Planner - PocketSmart</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            color: #17365d;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #12345b;
+            color: white;
+            padding: 8px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+        }
+
+        .logo {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 10px;
+        }
+
+        .nav-links a.active {
+            color: #ffb52e;
+            font-weight: bold;
+        }
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .page-header {
+            background: linear-gradient(120deg, #376da5, #1d426e);
+            color: white;
+            text-align: center;
+            padding: 25px 20px 30px;
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            font-size: 11px;
+        }
+
+        /* =========================
+           PLANNER CARD
+        ========================= */
+
+        .planner-wrapper {
+            max-width: 505px;
+            margin: 18px auto 40px;
+            padding: 0 12px;
+        }
+
+        .planner-card {
+            background: white;
+            padding: 16px;
+            border-radius: 7px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        /* =========================
+           FORM SECTIONS
+        ========================= */
+
+        .form-section {
+            background: #f1f4f9;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading {
+            font-size: 11px;
+            color: #173f69;
+            padding-bottom: 7px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #3e78b6;
+            display: inline-block;
+        }
+
+        .section-heading span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3d78b8;
+            color: white;
+            margin-right: 6px;
+            font-size: 10px;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 9px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #173f69;
+        }
+
+        input[type="number"],
+        textarea {
+            width: 100%;
+            border: 1px solid #d7dee8;
+            border-radius: 5px;
+            padding: 9px;
+            background: white;
+            color: #17365d;
+            font-size: 10px;
+            outline: none;
+        }
+
+        input[type="number"]:focus,
+        textarea:focus {
+            border-color: #3d78b8;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 14px;
+        }
+
+        textarea {
+            min-height: 55px;
+            resize: vertical;
+        }
+
+        /* =========================
+           ROOMS
+        ========================= */
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .room-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 9px;
+            color: #173f69;
+        }
+
+        .room-option input {
+            accent-color: #3978b7;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .button-area {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .generate-button {
+            border: none;
+            background: linear-gradient(90deg, #3d7cbd, #12345b);
+            color: white;
+            padding: 9px 28px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .generate-button:hover {
+            opacity: 0.92;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .nav-links {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .room-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            ▣ PocketSmart
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/home" class="active">
+                🏠 Home Budget
+            </a>
+
+            <a href="/party">
+                🎉 Party Budget
+            </a>
+
+            <a href="/jewelry">
+                💎 Jewelry Budget
+            </a>
+
+            <a href="/logout">
+                ⇥ Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <h1>
+            Home Interior Budget Planner
+        </h1>
+
+        <p>
+            Create a customized budget plan for your dream home interior
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         PLANNER
+    ========================= -->
+
+    <main class="planner-wrapper">
+
+        <div class="planner-card">
+
+            <form action="/generate-home" method="get" id="homePlannerForm">
+
+                <!-- BUDGET DETAILS -->
+
+                <section class="form-section">
+
+                    <h2 class="section-heading">
+                        <span>₹</span>
+                        Budget Details
+                    </h2>
+
+                    <label class="field-label" for="budget">
+                        Total Budget (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="budget"
+                        name="budget"
+                        value="5000"
+                        min="1"
+                        required
+                    >
+
+                </section>
+
+
+                <!-- FIXTURES & FURNITURE -->
+
+                <section class="form-section">
+
+                    <h2 class="section-heading">
+                        <span>▣</span>
+                        Fixtures &amp; Furniture
+                    </h2>
+
+                    <div class="field-grid">
+
+                        <div>
+                            <label class="field-label" for="lights">
+                                💡 Number of Lights/Fixtures
+                            </label>
+
+                            <input
+                                type="number"
+                                id="lights"
+                                name="lights"
+                                value="5"
+                                min="0"
+                            >
+                        </div>
+
+
+                        <div>
+                            <label class="field-label" for="fans">
+                                🌀 Number of Ceiling Fans
+                            </label>
+
+                            <input
+                                type="number"
+                                id="fans"
+                                name="fans"
+                                value="1"
+                                min="0"
+                            >
+                        </div>
+
+
+                        <div>
+                            <label class="field-label" for="furniture">
+                                🛋 Number of Furniture Pieces
+                            </label>
+
+                            <input
+                                type="number"
+                                id="furniture"
+                                name="furniture"
+                                value="2"
+                                min="0"
+                            >
+                        </div>
+
+
+                        <div>
+                            <label class="field-label" for="dining_tables">
+                                🍴 Number of Dining Tables
+                            </label>
+
+                            <input
+                                type="number"
+                                id="dining_tables"
+                                name="dining_tables"
+                                value="1"
+                                min="0"
+                            >
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ROOMS -->
+
+                <section class="form-section">
+
+                    <h2 class="section-heading">
+                        <span>⌂</span>
+                        Rooms to Include
+                    </h2>
+
+                    <div class="room-grid">
+
+                        <label class="room-option">
+                            <input
+                                type="checkbox"
+                                class="room-checkbox"
+                                value="Living Room"
+                            >
+                            🛋 Living Room
+                        </label>
+
+                        <label class="room-option">
+                            <input
+                                type="checkbox"
+                                class="room-checkbox"
+                                value="Kitchen"
+                            >
+                            🍴 Kitchen
+                        </label>
+
+                        <label class="room-option">
+                            <input
+                                type="checkbox"
+                                class="room-checkbox"
+                                value="Bedroom"
+                            >
+                            🛏 Bedroom
+                        </label>
+
+                    </div>
+
+                    <!-- Keeps compatibility with the current backend -->
+                    <input type="hidden" id="room" name="room" value="Bedroom">
+
+                    <input type="hidden" id="quantity" name="quantity" value="2">
+
+                </section>
+
+
+                <!-- ADDITIONAL INFORMATION -->
+
+                <section class="form-section">
+
+                    <h2 class="section-heading">
+                        <span>▣</span>
+                        Additional Information
+                    </h2>
+
+                    <label class="field-label" for="additional_info">
+                        Special Requirements or Preferences
+                    </label>
+
+                    <textarea
+                        id="additional_info"
+                        name="additional_info"
+                        placeholder="Any specific requirements or preferences..."
+                    ></textarea>
+
+                </section>
+
+
+                <!-- BUTTON -->
+
+                <div class="button-area">
+
+                    <button
+                        type="submit"
+                        class="generate-button"
+                    >
+                        ▣ Generate Recommendations
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const form = document.getElementById("homePlannerForm");
+
+        form.addEventListener("submit", function(event) {
+
+            const selectedRooms =
+                document.querySelectorAll(".room-checkbox:checked");
+
+            const roomInput =
+                document.getElementById("room");
+
+            const quantityInput =
+                document.getElementById("quantity");
+
+            if (selectedRooms.length > 0) {
+
+                const rooms = Array.from(selectedRooms)
+                    .map(room => room.value);
+
+                roomInput.value = rooms.join(", ");
+
+            }
+
+            const furniture =
+                parseInt(document.getElementById("furniture").value) || 0;
+
+            const diningTables =
+                parseInt(document.getElementById("dining_tables").value) || 0;
+
+            quantityInput.value =
+                Math.max(1, furniture + diningTables);
+
+        });
+
+    </script>
+
+</body>
+</html>

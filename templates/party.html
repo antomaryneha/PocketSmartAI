@@ -4,115 +4,629 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PocketSmart AI - Party Planner</title>
+    <title>PocketSmart - Party Budget Planner</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 30px;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        h1, h2 {
-            text-align: center;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 18px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 8px;
+        * {
             box-sizing: border-box;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 25px;
-            border: none;
-            border-radius: 6px;
-            background: #222;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f4f8;
+            color: #1f2937;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            height: 58px;
+            background: #12345b;
             color: white;
-            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .logo::before {
+            content: "📁 ";
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links .active {
+            background: rgba(255,255,255,0.12);
+            padding: 9px 12px;
+            border-radius: 4px;
+        }
+
+        /* =========================
+           PAGE HEADER
+        ========================== */
+
+        .page-header {
+            background: linear-gradient(135deg, #386da4, #285580);
+            color: white;
+            text-align: center;
+            padding: 25px 20px 30px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .page-header p {
+            margin: 8px 0 0;
+            font-size: 11px;
+        }
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        .main {
+            padding: 16px 20px 28px;
+            min-height: 560px;
+        }
+
+        .planner-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 17px;
+            border-radius: 12px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.10);
+        }
+
+        .section {
+            border: 1px solid #dce2e8;
+            background: #f8fafc;
+            border-radius: 7px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #12345b;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3e75b2;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #243b53;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #d7dee6;
+            border-radius: 5px;
+            padding: 8px 10px;
+            font-size: 11px;
+            background: white;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #3e75b2;
+        }
+
+        textarea {
+            height: 55px;
+            resize: vertical;
+        }
+
+        /* =========================
+           PARTY NEEDS
+        ========================== */
+
+        .needs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .need-option {
+            position: relative;
+        }
+
+        .need-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .need-label {
+            min-height: 42px;
+            border: 1px solid #dce2e8;
+            border-radius: 5px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .need-icon {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #e9eef5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+
+        .need-option input:checked + .need-label {
+            border-color: #3e75b2;
+            background: #f4f8fd;
+        }
+
+        .need-option input:checked + .need-label::before {
+            content: "✓";
+            position: absolute;
+            left: -5px;
+            top: -5px;
+            width: 13px;
+            height: 13px;
+            border-radius: 3px;
+            background: #3e75b2;
+            color: white;
+            font-size: 9px;
+            text-align: center;
+            line-height: 13px;
+        }
+
+        /* =========================
+           BUTTON
+        ========================== */
+
+        .generate-button {
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            padding: 9px;
+            background: #3e75b2;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
             cursor: pointer;
         }
 
-        button:hover {
-            background: #444;
+        .generate-button:hover {
+            background: #315f92;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #12345b;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 9px;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                height: auto;
+                padding: 12px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .needs {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="container">
+    <!-- NAVIGATION -->
 
-    <h1>🎉 PocketSmart AI</h1>
-    <h2>Party Budget Planner</h2>
+    <nav class="navbar">
 
-    <form action="/generate-party" method="get">
+        <div class="logo">
+            PocketSmart
+        </div>
 
-        <label for="budget">Total Budget (₹)</label>
-        <input
-            type="number"
-            id="budget"
-            name="budget"
-            min="1"
-            placeholder="Enter your budget"
-            required
-        >
+        <div class="nav-links">
 
-        <label for="guests">Number of Guests</label>
-        <input
-            type="number"
-            id="guests"
-            name="guests"
-            min="1"
-            placeholder="Enter guest count"
-            required
-        >
+            <a href="/home">
+                🏠 Home Planner
+            </a>
 
-        <label for="event_type">Event Type</label>
-        <select id="event_type" name="event_type" required>
-            <option value="">Select an event</option>
-            <option value="Birthday">Birthday</option>
-            <option value="Wedding">Wedding</option>
-            <option value="Corporate Event">Corporate Event</option>
-            <option value="Engagement">Engagement</option>
-            <option value="Family Function">Family Function</option>
-        </select>
+            <a href="/party" class="active">
+                🎉 Party Planner
+            </a>
 
-        <label for="venue">Venue</label>
-        <input
-            type="text"
-            id="venue"
-            name="venue"
-            placeholder="Enter venue or location"
-            required
-        >
+            <a href="/jewelry">
+                💎 Jewelry Planner
+            </a>
 
-        <button type="submit">
-            Get AI Party Recommendations
-        </button>
+            <a href="/history">
+                ↩ History
+            </a>
 
-    </form>
+            <a href="/logout">
+                ↪ Logout
+            </a>
 
-</div>
+        </div>
+
+    </nav>
+
+
+    <!-- PAGE HEADER -->
+
+    <section class="page-header">
+
+        <h1>Party Budget Planner</h1>
+
+        <p>
+            Plan your perfect event with AI-powered budget recommendations
+        </p>
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <div class="planner-card">
+
+            <form action="/generate-party" method="get">
+
+                <!-- BASIC INFORMATION -->
+
+                <div class="section">
+
+                    <div class="section-title">
+                        <span class="section-icon">ⓘ</span>
+                        Basic Information
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="field">
+
+                            <label for="budget">
+                                Total Budget (₹)
+                            </label>
+
+                            <input
+                                type="number"
+                                id="budget"
+                                name="budget"
+                                min="1"
+                                placeholder="Enter budget"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="guests">
+                                Number of Guests
+                            </label>
+
+                            <input
+                                type="number"
+                                id="guests"
+                                name="guests"
+                                min="1"
+                                placeholder="Enter number of guests"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EVENT DETAILS -->
+
+                <div class="section">
+
+                    <div class="section-title">
+                        <span class="section-icon">✥</span>
+                        Event Details
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="field">
+
+                            <label for="event_type">
+                                Party Type
+                            </label>
+
+                            <select
+                                id="event_type"
+                                name="event_type"
+                                required
+                            >
+
+                                <option value="">
+                                    Select party type
+                                </option>
+
+                                <option value="Birthday">
+                                    Birthday
+                                </option>
+
+                                <option value="Wedding">
+                                    Wedding
+                                </option>
+
+                                <option value="Engagement">
+                                    Engagement
+                                </option>
+
+                                <option value="Corporate Event">
+                                    Corporate Event
+                                </option>
+
+                                <option value="Family Function">
+                                    Family Function
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="venue">
+                                Venue Type
+                            </label>
+
+                            <select
+                                id="venue"
+                                name="venue"
+                                required
+                            >
+
+                                <option value="">
+                                    Select venue
+                                </option>
+
+                                <option value="Home">
+                                    Home
+                                </option>
+
+                                <option value="Hotel">
+                                    Hotel
+                                </option>
+
+                                <option value="Banquet Hall">
+                                    Banquet Hall
+                                </option>
+
+                                <option value="Restaurant">
+                                    Restaurant
+                                </option>
+
+                                <option value="Outdoor">
+                                    Outdoor
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PARTY NEEDS -->
+
+                <div class="section">
+
+                    <div class="section-title">
+                        <span class="section-icon">☷</span>
+                        Party Needs
+                    </div>
+
+                    <div class="needs">
+
+                        <div class="need-option">
+
+                            <input
+                                type="checkbox"
+                                id="catering"
+                                name="needs"
+                                value="Catering"
+                                checked
+                            >
+
+                            <label
+                                for="catering"
+                                class="need-label"
+                            >
+
+                                <span class="need-icon">
+                                    🍽️
+                                </span>
+
+                                Catering
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="need-option">
+
+                            <input
+                                type="checkbox"
+                                id="decoration"
+                                name="needs"
+                                value="Decoration"
+                            >
+
+                            <label
+                                for="decoration"
+                                class="need-label"
+                            >
+
+                                <span class="need-icon">
+                                    🎈
+                                </span>
+
+                                Decoration
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="need-option">
+
+                            <input
+                                type="checkbox"
+                                id="entertainment"
+                                name="needs"
+                                value="Entertainment"
+                                checked
+                            >
+
+                            <label
+                                for="entertainment"
+                                class="need-label"
+                            >
+
+                                <span class="need-icon">
+                                    🎵
+                                </span>
+
+                                Entertainment
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ADDITIONAL REQUIREMENTS -->
+
+                <div class="section">
+
+                    <div class="section-title">
+                        <span class="section-icon">💬</span>
+                        Additional Requirements
+                    </div>
+
+                    <textarea
+                        name="additional_info"
+                        placeholder="Special requests, themes, dietary restrictions, etc."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="generate-button"
+                >
+                    ▣ Generate Budget Plan
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        © 2025 PocketSmart. All rights reserved.
+    </footer>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 import os
 from dotenv import load_dotenv
 from google import genai
@@ -11,8 +12,11 @@ client = genai.Client(api_key=API_KEY)
 
 
 def ask_gemini(prompt, image_bytes=None, mime_type=None):
+
     try:
+
         if image_bytes:
+
             contents = [
                 types.Part.from_bytes(
                     data=image_bytes,
@@ -20,23 +24,51 @@ def ask_gemini(prompt, image_bytes=None, mime_type=None):
                 ),
                 prompt
             ]
+
         else:
+
             contents = prompt
 
+        print("GEMINI REQUEST STARTED")
+
         response = client.models.generate_content(
-            model="gemini-3.5-flash-lite",
-            contents=contents
+            model="gemini-3.8-flash",
+            contents=contents,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                thinking_config=types.ThinkingConfig(
+                    thinking_level="low"
+                )
+            )
         )
+
+        print("GEMINI REQUEST SUCCESS")
 
         return response.text
 
     except Exception as e:
+
         error_message = str(e)
 
+        print("GEMINI ERROR:", e)
+
         if "429" in error_message or "quota" in error_message.lower():
+
             return (
-                "Gemini API quota has been reached. "
-                "Please wait and try again later."
+                "GEMINI_ERROR: API quota has been reached."
             )
 
-        return "Sorry, Gemini could not generate a recommendation right now."
+        if "503" in error_message:
+
+            return (
+                "GEMINI_ERROR: Gemini service is temporarily busy."
+            )
+
+        if "404" in error_message:
+
+            return (
+                "GEMINI_ERROR: Gemini model was not found."
+            )
+
+        return f"GEMINI_ERROR: {e}"
+

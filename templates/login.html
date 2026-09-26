@@ -1,29 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - PocketSmart AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #172554;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 470px;
+            padding: 30px 20px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .brand h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+
+        .brand p {
+            font-size: 15px;
+            color: #172554;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 18px;
+            padding: 38px 40px;
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.10);
+        }
+
+        .login-card h2 {
+            text-align: center;
+            font-size: 25px;
+            color: #172554;
+            margin-bottom: 42px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #172554;
+            margin-bottom: 10px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 17px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #3b82c4;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 52px;
+            padding: 0 15px 0 56px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            color: #1e293b;
+            background: white;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.10);
+        }
+
+        .input-wrapper input::placeholder {
+            color: #64748b;
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            margin-top: -12px;
+            margin-bottom: 35px;
+            color: #3b82c4;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .signin-button {
+            width: 100%;
+            height: 58px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #3f7fc1, #17385f);
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.22);
+        }
+
+        .signin-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+        }
+
+        .create-account {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 15px;
+            color: #1e293b;
+        }
+
+        .create-account a {
+            color: #3b82c4;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .create-account a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+            .login-container {
+                padding: 20px 15px;
+            }
+
+            .login-card {
+                padding: 30px 22px;
+            }
+
+            .brand h1 {
+                font-size: 31px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>🤖 PocketSmart AI</h1>
-    <h2>Login</h2>
 
-    <form action="/login" method="post">
+    <div class="login-container">
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
+        <div class="brand">
+            <h1>PocketSmart</h1>
+            <p>AI-Powered Budget Planning</p>
+        </div>
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
+        <div class="login-card">
 
-        <button type="submit">Login</button>
+            <h2>Welcome Back</h2>
 
-    </form>
+            <form action="/login" method="post">
 
-    <p>
-        Don't have an account?
-        <a href="/register">Register</a>
-    </p>
+                <div class="form-group">
+                    <label>Username</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input
+                            type="text"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <a href="#" class="forgot-password">Forgot Password?</a>
+
+                <button type="submit" class="signin-button">
+                    Sign In →
+                </button>
+
+            </form>
+
+            <p class="create-account">
+                Don't have an account?
+                <a href="/register">Create Account</a>
+            </p>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

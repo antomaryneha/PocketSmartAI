@@ -1,106 +1,729 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PocketSmart AI - History</title>
+    <title>Recommendation History</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 30px;
+            padding: 0;
+            font-family: Arial, sans-serif;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
+        body {
+            background: #f5f8fc;
+            color: #173a62;
         }
 
-        .header, .history-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        /* NAVBAR */
+
+        .navbar {
+            background: #12345a;
+            color: white;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 55px;
         }
 
-        h1 {
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* HERO */
+
+        .history-hero {
+            background: linear-gradient(
+                135deg,
+                #3e7bbb,
+                #173a62
+            );
+
+            color: white;
             text-align: center;
+            padding: 55px 20px;
         }
 
-        .history-card h2 {
-            margin-top: 0;
+        .history-hero h1 {
+            font-size: 30px;
+            margin-bottom: 12px;
         }
 
-        .details {
-            background: #f1f3f5;
-            padding: 12px;
-            border-radius: 8px;
+        .history-hero p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* MAIN */
+
+        .main-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto 60px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 22px;
+            margin-bottom: 22px;
+            color: #173a62;
+        }
+
+        /* HISTORY GRID */
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        /* CARD */
+
+        .history-card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 5px 18px rgba(20, 55, 90, 0.08);
+            border: 1px solid #edf1f6;
+            position: relative;
+            min-height: 290px;
+        }
+
+        .history-date {
+            text-align: right;
+            color: #8b98a9;
+            font-size: 10px;
             margin-bottom: 15px;
         }
 
-        .recommendation {
-            white-space: pre-wrap;
-            line-height: 1.7;
+        .history-type {
+            font-size: 17px;
+            font-weight: 700;
+            color: #173a62;
+            margin-bottom: 18px;
         }
 
-        .back-button {
-            display: block;
-            text-align: center;
-            padding: 12px;
-            background: #222;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
+        .budget-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 13px;
+            font-size: 12px;
         }
+
+        .budget-label {
+            color: #7d8b9b;
+        }
+
+        .budget-value {
+            font-weight: 700;
+            color: #173a62;
+        }
+
+        .details {
+            margin-top: 18px;
+            border-top: 1px solid #edf0f4;
+            padding-top: 15px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 9px;
+            font-size: 11px;
+        }
+
+        .detail-label {
+            color: #7d8b9b;
+        }
+
+        .detail-value {
+            color: #173a62;
+            font-weight: 600;
+        }
+
+        /* TAGS */
+
+       .tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.tags .tag {
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    background: #edf5ff;
+    color: #2e67a2;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 9px;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-right: 0;
+}
+        /* BUTTON */
+
+        .details-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            background: linear-gradient(
+                90deg,
+                #3e7bbb,
+                #12345a
+            );
+            color: white;
+            border-radius: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .details-button:hover {
+            opacity: 0.9;
+        }
+
+        /* EMPTY */
+
+        .empty-history {
+            background: white;
+            text-align: center;
+            padding: 55px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 18px rgba(20, 55, 90, 0.08);
+            color: #7d8b9b;
+        }
+
+        .empty-history h3 {
+            color: #173a62;
+            margin-bottom: 8px;
+        }
+
+        /* BACK */
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2e67a2;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #12345a;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-size: 10px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            .navbar {
+                height: auto;
+                padding: 18px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .history-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .history-hero h1 {
+                font-size: 25px;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
-<div class="container">
+    <!-- NAVBAR -->
 
-    <div class="header">
-        <h1>📋 PocketSmart AI History</h1>
-        <p>Previous AI recommendations</p>
-    </div>
+    <header class="navbar">
 
-    {% if history %}
-
-        {% for item in history %}
-
-        <div class="history-card">
-
-            <h2>{{ item.type }}</h2>
-
-            <div class="details">
-                {{ item.details }}
-            </div>
-
-            <div class="recommendation">
-                {{ item.recommendation }}
-            </div>
-
+        <div class="logo">
+            ▣ PocketSmart
         </div>
 
-        {% endfor %}
+        <nav class="nav-links">
 
-    {% else %}
+            <a href="/">⌂ Dashboard</a>
 
-        <div class="history-card">
-            <p>No recommendations saved yet.</p>
-        </div>
+            <a href="/home">
+                ⌂ Home Planner
+            </a>
 
+            <a href="/party">
+                ♟ Party Planner
+            </a>
+
+            <a href="/jewelry">
+                ◆ Jewelry Planner
+            </a>
+
+            <a href="/history">
+                ↶ History
+            </a>
+
+            <a href="/logout">
+                ⇥ Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="history-hero">
+
+        <h1>
+            Your Recommendation History
+        </h1>
+
+        <p>
+            View and manage all your previous budget plans and recommendations
+        </p>
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <main class="main-container">
+
+        <h2 class="section-title">
+            ↶ Recent Recommendations
+        </h2>
+
+
+        {% if history %}
+
+        <div class="history-grid">
+
+            {% for item in history %}
+
+            {% set details = item.get("details", {}) %}
+            {% set recommendation = item.get("recommendation", {}) %}
+
+            <div class="history-card">
+
+                <!-- DATE -->
+
+                <div class="history-date">
+
+                    {% if item.get("created_at") %}
+
+                        {{ item.get("created_at") }}
+
+                    {% else %}
+
+                        Date not available
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- TYPE -->
+
+                <div class="history-type">
+
+                    {% if item.get("type") == "Home Interior" %}
+
+                        ⌂ Home Interior Budget
+
+                    {% elif item.get("type") == "Party" %}
+
+                        ♟ Party Planning Budget
+
+                    {% elif item.get("type") == "Jewelry" %}
+
+                        ◆ Jewelry Budget
+
+                    {% else %}
+
+                        {{ item.get("type", "Budget Plan") }}
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- BUDGET -->
+
+                {% if details.get("budget") is not none %}
+
+                <div class="budget-row">
+
+                    <span class="budget-label">
+                        Total Budget
+                    </span>
+
+                    <span class="budget-value">
+                        ₹{{ details.get("budget") }}
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if recommendation.get("remaining_budget") is not none %}
+
+                <div class="budget-row">
+
+                    <span class="budget-label">
+                        Remaining
+                    </span>
+
+                    <span class="budget-value">
+                        ₹{{ recommendation.get("remaining_budget") }}
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- DETAILS -->
+
+                <div class="details">
+
+
+                    {% if item.get("type") == "Home Interior" %}
+
+                        {% if details.get("room") %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Room
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("room") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if details.get("lights") is not none %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Lights
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("lights") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if details.get("fans") is not none %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Fans
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("fans") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if details.get("furniture") is not none %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Furniture
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("furniture") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if details.get("dining_tables") is not none and details.get("dining_tables") > 0 %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Dining Tables
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("dining_tables") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <div class="tags">
+
+    {% if details.get("lights", 0) > 0 %}
+    <span class="tag">Lighting</span>&nbsp;
     {% endif %}
 
-    <a href="/" class="back-button">
-        ← Back to PocketSmart AI
-    </a>
+    {% if details.get("fans", 0) > 0 %}
+    <span class="tag">Ceiling Fans</span>&nbsp;
+    {% endif %}
+
+    {% if details.get("furniture", 0) > 0 %}
+    <span class="tag">Furniture</span>&nbsp;
+    {% endif %}
+
+    {% if details.get("dining_tables", 0) > 0 %}
+    <span class="tag">Dining</span>
+    {% endif %}
 
 </div>
+                     
+
+
+                    {% elif item.get("type") == "Party" %}
+
+                        {% if details.get("event_type") %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Party Type
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("event_type") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if details.get("guests") is not none %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Guests
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("guests") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if details.get("venue") %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Venue
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("venue") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if details.get("needs") %}
+
+                        <div class="tags">
+
+                            {% for need in details.get("needs") %}
+
+                            <span class="tag">
+                                {{ need }}
+                            </span>
+
+                            {% endfor %}
+
+                        </div>
+
+                        {% endif %}
+
+
+                    {% elif item.get("type") == "Jewelry" %}
+
+                        {% if details.get("occasion") %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Occasion
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("occasion") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if details.get("style") %}
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Style
+                            </span>
+
+                            <span class="detail-value">
+                                {{ details.get("style") }}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <div class="tags">
+
+                            <span class="tag">
+                                Jewelry
+                            </span>
+
+                            {% if details.get("style") %}
+
+                            <span class="tag">
+                                {{ details.get("style") }}
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <a
+                    href="/recommendations-details"
+                    class="details-button"
+                >
+                    View Full Details
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-history">
+
+            <h3>
+                No Recommendations Yet
+            </h3>
+
+            <p>
+                Your saved budget plans will appear here.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+        <a
+            href="/"
+            class="back-link"
+        >
+            ← Back to PocketSmart
+        </a>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2025 PocketSmart. All rights reserved.
+
+    </footer>
 
 </body>
+
 </html>

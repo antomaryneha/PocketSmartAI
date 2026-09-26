@@ -1,32 +1,254 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - PocketSmart AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            background: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #172554;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 470px;
+            padding: 30px 20px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .brand h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+
+        .brand p {
+            font-size: 15px;
+            color: #64748b;
+        }
+
+        .register-card {
+            background: white;
+            border-radius: 18px;
+            padding: 38px 40px;
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.10);
+        }
+
+        .register-card h2 {
+            text-align: center;
+            font-size: 25px;
+            color: #172554;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 17px;
+            color: #64748b;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px 0 43px;
+            border: 1px solid #dbe3ef;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+            color: #1e293b;
+            background: #ffffff;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.10);
+        }
+
+        .input-wrapper input::placeholder {
+            color: #94a3b8;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 25px 0;
+        }
+
+        .create-button {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.2s ease;
+        }
+
+        .create-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 7px 18px rgba(37, 99, 235, 0.25);
+        }
+
+        .signin-text {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .signin-text a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signin-text a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+            .register-container {
+                padding: 20px 15px;
+            }
+
+            .register-card {
+                padding: 30px 22px;
+            }
+
+            .brand h1 {
+                font-size: 31px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>🤖 PocketSmart AI</h1>
-    <h2>Create an Account</h2>
 
-    <form action="/register" method="post">
+    <div class="register-container">
 
-        <label>Name:</label><br>
-        <input type="text" name="name" required><br><br>
+        <div class="brand">
+            <h1>PocketSmart</h1>
+            <p>AI-Powered Budget Planning</p>
+        </div>
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
+        <div class="register-card">
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
+            <h2>Create Your Account</h2>
 
-        <button type="submit">Register</button>
+            <form action="/register" method="post">
 
-    </form>
+                <div class="form-group">
+                    <label>Username</label>
 
-    <p>
-        Already have an account?
-        <a href="/login">Login</a>
-    </p>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Choose a username"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">✉</span>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Create a strong password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+
+                    <div class="input-wrapper">
+                        <span class="input-icon">✓</span>
+                        <input
+                            type="password"
+                            name="confirm_password"
+                            placeholder="Confirm your password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <button type="submit" class="create-button">
+                    👤＋ Create Account
+                </button>
+
+            </form>
+
+            <p class="signin-text">
+                Already have an account?
+                <a href="/login">Sign In</a>
+            </p>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

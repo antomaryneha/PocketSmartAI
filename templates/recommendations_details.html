@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recommendation Details</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f8fc;
+            color: #173a62;
+        }
+
+        .navbar {
+            background: #12345a;
+            color: white;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 55px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #3e7bbb, #173a62);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        .hero h1 {
+            font-size: 29px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 14px;
+            opacity: .9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto 60px;
+        }
+
+        .recommendation-card {
+            background: white;
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 18px rgba(20,55,90,.08);
+        }
+
+        .title {
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .date {
+            color: #8996a6;
+            font-size: 11px;
+            margin-bottom: 18px;
+        }
+
+        .budget-box {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .budget-item {
+            background: #f1f6fc;
+            border-radius: 10px;
+            padding: 15px 20px;
+            min-width: 180px;
+        }
+
+        .budget-item span {
+            display: block;
+            color: #7c8998;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .budget-item strong {
+            font-size: 18px;
+            color: #173a62;
+        }
+
+        .section {
+            border-top: 1px solid #e8edf3;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .item-name {
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .item-description {
+            color: #718096;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .item-info {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #173a62;
+        }
+
+        .suggestions {
+            padding-left: 20px;
+        }
+
+        .suggestions li {
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #536579;
+        }
+
+        .back {
+            display: inline-block;
+            color: #2e67a2;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        footer {
+            background: #12345a;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-size: 10px;
+        }
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                height: auto;
+                padding: 18px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .budget-box {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="logo">
+        ▣ PocketSmart
+    </div>
+
+    <nav class="nav-links">
+
+        <a href="/">⌂ Dashboard</a>
+
+        <a href="/home">⌂ Home Planner</a>
+
+        <a href="/party">♟ Party Planner</a>
+
+        <a href="/jewelry">◆ Jewelry Planner</a>
+
+        <a href="/history">↶ History</a>
+
+        <a href="/logout">⇥ Logout</a>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>
+        Recommendation Details
+    </h1>
+
+    <p>
+        View the complete details of your saved budget plans
+    </p>
+
+</section>
+
+
+<main class="container">
+
+
+{% for item in recommendations %}
+
+{% set details = item.get("details", {}) %}
+{% set recommendation = item.get("recommendation", {}) %}
+
+
+<div class="recommendation-card">
+
+
+    <div class="title">
+
+        {% if item.get("type") == "Home Interior" %}
+
+            ⌂ Home Interior Recommendation
+
+        {% elif item.get("type") == "Party" %}
+
+            ♟ Party Planning Recommendation
+
+        {% elif item.get("type") == "Jewelry" %}
+
+            ◆ Jewelry Recommendation
+
+        {% else %}
+
+            {{ item.get("type", "Recommendation") }}
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="date">
+
+        Created:
+        {{ item.get("created_at", "Date not available") }}
+
+    </div>
+
+
+    <div class="budget-box">
+
+
+        {% if details.get("budget") is not none %}
+
+        <div class="budget-item">
+
+            <span>
+                Total Budget
+            </span>
+
+            <strong>
+                ₹{{ details.get("budget") }}
+            </strong>
+
+        </div>
+
+        {% endif %}
+
+
+        {% if recommendation.get("remaining_budget") is not none %}
+
+        <div class="budget-item">
+
+            <span>
+                Remaining Budget
+            </span>
+
+            <strong>
+                ₹{{ recommendation.get("remaining_budget") }}
+            </strong>
+
+        </div>
+
+        {% endif %}
+
+
+        {% if details.get("room") %}
+
+        <div class="budget-item">
+
+            <span>
+                Room
+            </span>
+
+            <strong>
+                {{ details.get("room") }}
+            </strong>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    {% if recommendation.get("lighting") %}
+
+    <div class="section">
+
+        <h3>
+            💡 Lighting
+        </h3>
+
+
+        {% for product in recommendation.get("lighting", {}).get("items", []) %}
+
+        <div class="item">
+
+            <div class="item-name">
+                {{ product.get("item") }}
+            </div>
+
+            <div class="item-description">
+                {{ product.get("description") }}
+            </div>
+
+            <div class="item-info">
+
+                Price: ₹{{ product.get("price") }}
+
+                &nbsp; | &nbsp;
+
+                Quantity: {{ product.get("quantity") }}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if recommendation.get("ceiling_fans") %}
+
+    <div class="section">
+
+        <h3>
+            🌀 Ceiling Fans
+        </h3>
+
+
+        {% for product in recommendation.get("ceiling_fans", {}).get("items", []) %}
+
+        <div class="item">
+
+            <div class="item-name">
+                {{ product.get("item") }}
+            </div>
+
+            <div class="item-description">
+                {{ product.get("description") }}
+            </div>
+
+            <div class="item-info">
+
+                Price: ₹{{ product.get("price") }}
+
+                &nbsp; | &nbsp;
+
+                Quantity: {{ product.get("quantity") }}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if recommendation.get("furniture") %}
+
+    <div class="section">
+
+        <h3>
+            🪑 Furniture
+        </h3>
+
+
+        {% for product in recommendation.get("furniture", {}).get("items", []) %}
+
+        <div class="item">
+
+            <div class="item-name">
+                {{ product.get("item") }}
+            </div>
+
+            <div class="item-description">
+                {{ product.get("description") }}
+            </div>
+
+            <div class="item-info">
+
+                Price: ₹{{ product.get("price") }}
+
+                &nbsp; | &nbsp;
+
+                Quantity: {{ product.get("quantity") }}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if recommendation.get("additional_suggestions") %}
+
+    <div class="section">
+
+        <h3>
+            Additional Suggestions
+        </h3>
+
+        <ul class="suggestions">
+
+            {% for suggestion in recommendation.get("additional_suggestions", []) %}
+
+            <li>
+                {{ suggestion }}
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+{% endfor %}
+
+
+<a href="/history" class="back">
+    ← Back to Recommendation History
+</a>
+
+
+</main>
+
+
+<footer>
+
+    © 2025 PocketSmart. All rights reserved.
+
+</footer>
+
+
+</body>
+
+</html>
