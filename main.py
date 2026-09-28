@@ -731,6 +731,7 @@ def generate_party(
     guests: int,
     event_type: str,
     venue: str = "",
+    needs: list[str] = [],
     additional_info: str = ""
 ):
 
@@ -744,19 +745,20 @@ Total Budget: ₹{budget}
 Number of Guests: {guests}
 Event Type: {event_type}
 Venue: {venue}
+Required Services: {", ".join(needs)}
 Additional Information: {additional_info}
 
 Create realistic recommendations within the total budget.
 
 IMPORTANT:
-- The total of all items must NOT exceed ₹{budget}.
-- Use Swiggy, Zomato and OYO as sources where relevant.
-- Give realistic Indian prices.
+- Total cost must not exceed the total budget.
 - Consider the number of guests.
+- Give realistic Indian prices.
+- Use Swiggy, Zomato and OYO where relevant.
 - Return ONLY valid JSON.
 - Do not use markdown.
 
-Use EXACTLY this JSON structure:
+Use EXACTLY this structure:
 
 {{
     "total_budget": {budget},
@@ -764,51 +766,29 @@ Use EXACTLY this JSON structure:
 
     "catering": {{
         "allocation": 0,
-        "items": [
-            {{
-                "item": "Food or catering option",
-                "description": "Short description",
-                "price": 0,
-                "quantity": 1,
-                "shopping_links": ["Swiggy", "Zomato"]
-            }}
-        ]
+        "items": []
     }},
 
     "decoration": {{
         "allocation": 0,
-        "items": [
-            {{
-                "item": "Decoration item",
-                "description": "Short description",
-                "price": 0,
-                "quantity": 1,
-                "shopping_links": ["Amazon"]
-            }}
-        ]
+        "items": []
+    }},
+
+    "entertainment": {{
+        "allocation": 0,
+        "items": []
     }},
 
     "venue": {{
         "allocation": 0,
-        "items": [
-            {{
-                "item": "Venue option",
-                "description": "Short description",
-                "price": 0,
-                "quantity": 1,
-                "shopping_links": ["OYO"]
-            }}
-        ]
+        "items": []
     }},
 
-    "additional_suggestions": [
-        "Suggestion 1",
-        "Suggestion 2",
-        "Suggestion 3"
-    ]
+    "additional_suggestions": []
 }}
 
-Make sure allocation values and item prices are consistent with the total budget.
+Each item must contain:
+item, description, price, quantity, shopping_links.
 """
 
     source_text = "\n".join(
@@ -823,26 +803,66 @@ Make sure allocation values and item prices are consistent with the total budget
 Available party planning sources:
 {source_text}
 
-Use these sources in the shopping_links fields.
+Use these platforms in shopping_links where appropriate.
 """
 
     try:
 
         answer = ask_gemini(prompt)
-
         recommendation_data = extract_json(answer)
+
+        # Make sure the template-required sections always exist.
+        recommendation_data.setdefault(
+            "total_budget",
+            budget
+        )
+
+        recommendation_data.setdefault(
+            "remaining_budget",
+            0
+        )
+
+        recommendation_data.setdefault(
+            "catering",
+            {"allocation": 0, "items": []}
+        )
+
+        recommendation_data.setdefault(
+            "decoration",
+            {"allocation": 0, "items": []}
+        )
+
+        recommendation_data.setdefault(
+            "entertainment",
+            {"allocation": 0, "items": []}
+        )
+
+        recommendation_data.setdefault(
+            "venue",
+            {"allocation": 0, "items": []}
+        )
+
+        recommendation_data.setdefault(
+            "additional_suggestions",
+            []
+        )
 
     except Exception as e:
 
         print("PARTY AI ERROR:", e)
 
         catering_amount = min(
-            budget * 0.50,
-            max(0, guests * 500)
+            budget * 0.45,
+            guests * 500
         )
 
         decoration_amount = min(
             budget * 0.20,
+            budget
+        )
+
+        entertainment_amount = min(
+            budget * 0.10,
             budget
         )
 
@@ -854,11 +874,11 @@ Use these sources in the shopping_links fields.
         total_used = (
             catering_amount
             + decoration_amount
+            + entertainment_amount
             + venue_amount
         )
 
         if total_used > budget:
-
             total_used = budget
 
         remaining = max(
@@ -876,14 +896,11 @@ Use these sources in the shopping_links fields.
             ),
 
             "catering": {
-
                 "allocation": round(
                     catering_amount,
                     2
                 ),
-
                 "items": [
-
                     {
                         "item": "Party Catering Package",
                         "description": (
@@ -897,24 +914,20 @@ Use these sources in the shopping_links fields.
                             "Zomato"
                         ]
                     }
-
                 ] if guests > 0 else []
             },
 
             "decoration": {
-
                 "allocation": round(
                     decoration_amount,
                     2
                 ),
-
                 "items": [
-
                     {
                         "item": "Party Decoration Set",
                         "description": (
-                            "Simple decoration package "
-                            "suitable for the selected event."
+                            "Decoration package suitable "
+                            "for the selected event."
                         ),
                         "price": round(
                             decoration_amount,
@@ -925,24 +938,44 @@ Use these sources in the shopping_links fields.
                             "Amazon"
                         ]
                     }
+                ]
+            },
 
+            "entertainment": {
+                "allocation": round(
+                    entertainment_amount,
+                    2
+                ),
+                "items": [
+                    {
+                        "item": "Party Entertainment",
+                        "description": (
+                            "Entertainment option suitable "
+                            "for the selected event."
+                        ),
+                        "price": round(
+                            entertainment_amount,
+                            2
+                        ),
+                        "quantity": 1,
+                        "shopping_links": [
+                            "Amazon"
+                        ]
+                    }
                 ]
             },
 
             "venue": {
-
                 "allocation": round(
                     venue_amount,
                     2
                 ),
-
                 "items": [
-
                     {
                         "item": "Event Venue",
                         "description": (
-                            "Venue option suitable for "
-                            "the selected event and guests."
+                            "Venue suitable for the selected "
+                            "event and number of guests."
                         ),
                         "price": round(
                             venue_amount,
@@ -953,19 +986,49 @@ Use these sources in the shopping_links fields.
                             "OYO"
                         ]
                     }
-
                 ]
             },
 
             "additional_suggestions": [
-
                 "Compare Swiggy and Zomato catering options.",
-
                 "Choose decorations according to the event type.",
-
-                "Check venue capacity before booking."
+                "Check venue capacity before booking.",
+                "Plan entertainment according to the guest count."
             ]
         }
+
+    email = request.session.get("email")
+
+    if email:
+        save_history(
+            email=email,
+            history_type="Party",
+            details={
+                "budget": budget,
+                "guests": guests,
+                "event_type": event_type,
+                "venue": venue,
+                "needs": needs,
+                "additional_info": additional_info
+            },
+            recommendation=recommendation_data
+        )
+
+    return templates.TemplateResponse(
+        request=request,
+        name="party_result.html",
+        context={
+            "recommendation": recommendation_data,
+            "budget": budget,
+            "event_type": event_type,
+            "guests": guests,
+            "venue": venue,
+            "additional_info": additional_info
+        }
+    )
+
+
+
 
     # =========================
     # SAVE PARTY HISTORY
@@ -1040,10 +1103,10 @@ async def generate_jewelry(request: Request):
     # Default outfit analysis
 
     outfit_analysis = {
-        "colors": "blue, white",
-        "style": "casual",
-        "formality": "informal"
-    }
+    "colors": "not available",
+    "style": "not available",
+    "formality": "not available"
+}
 
     # =========================
     # GEMINI IMAGE ANALYSIS
