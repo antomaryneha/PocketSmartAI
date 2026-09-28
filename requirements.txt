@@ -4,3 +4,10 @@ python-dotenv
 jinja2
 python-multipart
 google-genai
+fastapi
+uvicorn
+python-dotenv
+jinja2
+python-multipart
+google-genai
+itsdangerous
